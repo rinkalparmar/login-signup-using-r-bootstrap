@@ -6,11 +6,11 @@ import NavbarMain from './NavbarMain';
 
 const MainData = () => {
     return (
-        <div className="d-flex my-5" >
+        <div className="d-flex " >
             <Sbar />
-            <div className="flex-grow-1">
+            <div className="flex-grow-1 mx-3">
                 <NavbarMain />
-                <div className="p-3">
+                <div className="p-5 my-3">
                     <Outlet />
                     {/* <h1>hello rinkal</h1> */}
                 </div>

@@ -9,19 +9,28 @@ import { useNavigate } from "react-router";
 function Login() {
   let navigate = useNavigate();
   const [input, setInput] = useState({ email: "", password: "" });
-  // const [store, setStore] = useState({});
-
+  const [error, setError] = useState("");
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(input.email);
+
+  
+    // console.log(input.email);
     const user = JSON.parse(localStorage.getItem("record"));
-    console.log(user);
+    // console.log(user);
     const findUser = user.find((data) => { if (data.email === input.email && data.password === input.password) { return data; } });
     console.log(findUser);
-
+    if (!findUser) {
+      setError("wrong email and password");
+      navigate("/login");
+      return
+    }
     setInput({ email: "", password: "" });
+
+
+    console.log("error", error);
+
     if (findUser) {
       console.log("Login Successfull");
       navigate("/home");
@@ -32,8 +41,7 @@ function Login() {
       navigate("/login");
     }
 
-    setInput((predata) => ([...predata, input]));
-    localStorage.setItem("logindata", JSON.stringify({...input}));
+    localStorage.setItem("logindata", JSON.stringify({ ...input }));
     setInput({ email: "", password: "" });
   };
 
@@ -41,9 +49,10 @@ function Login() {
     let name = event.target.name;
     let value = event.target.value;
     setInput((input) => ({ ...input, [name]: value }));
+
   };
 
-  
+
 
   return (
     <>
@@ -51,6 +60,7 @@ function Login() {
         <Row>
           <Col>
             <Form onSubmit={handleSubmit} style={{ width: "100%", maxWidth: '600px' }} className='p-4 shadow rounded bg-light'>
+              {error && <span className="error">{error}</span>}
               <h2>Login Form</h2>
               <Row className="mb-3">
                 <Form.Group md="4" >

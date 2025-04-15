@@ -32,27 +32,15 @@ function NavbarMain() {
   console.log("logindata", logindata);
   console.log("userInfo", userInfo);
 
-  // ///////////////////also fins user name
-  // userInfo.map((data) => {
-  //   console.log("userInfo................", data);
-  //   if (data?.email === logindata?.email) {//here logindata is array so used [0] and get name 
-  //     console.log("hello", data.name);
-  //     let currentUser = data.name;
-  //     return data.name;
-  //   }
-  //   else {
-  //     console.log("not hello");
-  //   }
-  // });
-
-  const CurrentUser = userInfo.find((data) => { return data.email === logindata.email; });
-  console.log("CurrentUser", CurrentUser.name);
+ 
+  const currentUser = userInfo.find((data) => { return data.email === logindata.email; });
+  console.log("currentUser", currentUser.name);
   console.log("found");
 
   return (
-    <Navbar expand="lg" className=" fixed-top" style={{ backgroundColor: "rgb(51, 51, 51)" }}>
+    <Navbar expand="lg" className="fixed-top" style={{ backgroundColor: "rgb(51, 51, 51)", minWidth: "164px", maxWidth: "100%" }}>
       <Container>
-        <Navbar.Brand href="/" className="text-white">  Demo Website</Navbar.Brand>
+        <Navbar.Brand href="/home" className="text-white">Demo Website</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className='bg-light' />
         <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end' >
 
@@ -65,9 +53,8 @@ function NavbarMain() {
 
                 <Dropdown.Menu className='p-3 bg-light text-bold'>
                   <button className='btn btn-danger btn-sm'> <Dropdown.Item onClick={handleLogout}>LogOut</Dropdown.Item></button>
-                  <Dropdown.Item >hello {CurrentUser.name}
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                  <Dropdown.Item >hello {currentUser.name}  </Dropdown.Item>
+                  <Dropdown.Item >Something else</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown> : <>
                 <Button variant="primary mx-4" onClick={() => navigate("/login")}>Login</Button>
